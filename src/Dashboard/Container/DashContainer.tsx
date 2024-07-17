@@ -3,6 +3,7 @@ import Sidebar from '../Components/Sidebar';
 import useSidebar from '../hooks/useSidebar';
 import { Footer } from '../Components/footer';
 import Header from '../Components/header';
+import { Outlet } from 'react-router-dom';
 
 const DashContainer: React.FC = () => {
   const { sidebarOpen, toggleSidebar } = useSidebar();
@@ -20,7 +21,7 @@ const DashContainer: React.FC = () => {
           <Header isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
           {/* content */}
           <div className="flex justify-center items-center h-full">
-            <h1 className="text-3xl text-white">Dashboard</h1>
+            <Outlet/>
           </div>
           {/* content */}
         </div>
