@@ -11,58 +11,78 @@ export const useMonthCalendar = () => {
   const [days, setDays] = useState<Day[]>([]); // État pour stocker les jours du mois
 
   // Fonction pour calculer la chaîne de date pour chaque jour du mois
-  const calculateDayString = (i: number): string => {
-    const firstDayOfMonth = new Date(year, month, 1);
-    return new Date(year, month, i - firstDayOfMonth.getDay() + 1).toISOString().split('T')[0];
+  const calculateDayString = (i: number, firstDayOfMonth: Date): string => {
+    return new Date(firstDayOfMonth.getFullYear(), firstDayOfMonth.getMonth(), i).toISOString().split('T')[0];
   };
 
   // useEffect pour mettre à jour les états du mois et de l'année lorsque la navigation change
   useEffect(() => {
-    if (nav !== 0) {
-      const newDate = new Date(new Date().setMonth(new Date().getMonth() + nav));
-      setMonth(newDate.getMonth());
-      setYear(newDate.getFullYear());
-    } else {
-      setMonth(dt.getMonth());
-      setYear(dt.getFullYear());
-    }
+    const newDate = new Date(dt);
+    newDate.setMonth(dt.getMonth() + nav);
+    const newMonth = newDate.getMonth();
+    const newYear = newDate.getFullYear();
+    setMonth(newMonth);
+    setYear(newYear);
 
     // Mettre à jour l'affichage de la date
-    setDateDisplay(new Date(year, month).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }));
+    setDateDisplay(newDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' }));
 
     // Générer le tableau des jours pour le mois en cours
     const daysArray: Day[] = [];
-    const firstDayOfMonth = new Date(year, month, 1);
+    const firstDayOfMonth = new Date(newYear, newMonth, 1);
     const paddingDays = firstDayOfMonth.getDay();
-    const numDaysInMonth = daysInMonth(month, year);
+    const numDaysInMonth = daysInMonth(newMonth, newYear);
 
-    for (let i = 1; i <= paddingDays + numDaysInMonth; i++) {
-      const dayString = calculateDayString(i);
+    // Jours du mois précédent
+    for (let i = paddingDays - 1; i >= 0; i--) {
+      const prevMonthDate = new Date(newYear, newMonth, -i);
+      daysArray.push({
+        date: prevMonthDate.toISOString().split('T')[0],
+        value: prevMonthDate.getDate(),
+        isCurrentDay: false,
+        isWeekend: prevMonthDate.getDay() === 0 || prevMonthDate.getDay() === 6,
+        isNextMonthDay: false,
+        isPreviousMonthDay: true,
+        isPublicHoliday: false,
+      });
+    }
 
-      if (i > paddingDays) {
-        daysArray.push({
-          date: dayString,
-          value: i - paddingDays,
-          isCurrentDay: i - paddingDays === new Date().getDate() && month === new Date().getMonth() && year === new Date().getFullYear()
-        });
-      } else {
-        daysArray.push({
-          date: dayString,
-          value: 'padding',
-          isCurrentDay: false
-        });
-      }
+    // Jours du mois en cours
+    for (let i = 1; i <= numDaysInMonth; i++) {
+      const dayString = calculateDayString(i, firstDayOfMonth);
+      const dayDate = new Date(newYear, newMonth, i);
+      daysArray.push({
+        date: dayString,
+        value: i,
+        isCurrentDay: i === dt.getDate() && newMonth === dt.getMonth() && newYear === dt.getFullYear(),
+        isWeekend: dayDate.getDay() === 0 || dayDate.getDay() === 6,
+        isNextMonthDay: false,
+        isPreviousMonthDay: false,
+        isPublicHoliday: false, // Mis de coté pour le moment
+      });
+    }
+
+    // Jours du mois suivant
+    const totalDays = paddingDays + numDaysInMonth;
+    for (let i = 1; i <= (7 - (totalDays % 7)) % 7; i++) {
+      const nextMonthDate = new Date(newYear, newMonth + 1, i);
+      daysArray.push({
+        date: nextMonthDate.toISOString().split('T')[0],
+        value: nextMonthDate.getDate(),
+        isCurrentDay: false,
+        isNextMonthDay: true,
+        isPreviousMonthDay: false,
+        isWeekend: nextMonthDate.getDay() === 0 || nextMonthDate.getDay() === 6,
+        isPublicHoliday: false,
+      });
     }
 
     // Mettre à jour l'état des jours
     setDays(daysArray);
-  }, [nav, month, year]);
+  }, [nav]);
 
   // Fonction pour réinitialiser la vue sur le mois actuel
   const handleTodayClick = () => {
-    const today = new Date();
-    setMonth(today.getMonth());
-    setYear(today.getFullYear());
     setNav(0);
   };
 

@@ -1,6 +1,6 @@
 // Type pour les événements du calendrier
 export type Events = {
-    id: number;
+    id: string;
     title: string;
     start: string;
     end: string;
@@ -22,6 +22,11 @@ export type Events = {
     onClick?: () => void;
   }
   
+  // Interface pour les props du composant WeekDay
+  export interface WeekDay {
+    day: string;
+    isWeekend: boolean;
+  }
   // Interface pour les props du composant Button
   export interface ButtonProps {
     onClick: () => void;
@@ -33,4 +38,8 @@ export type Events = {
     event?: Events[];
     value: number | 'padding';
     isCurrentDay: boolean;
+    isWeekend: boolean;
+    isNextMonthDay: boolean;
+    isPreviousMonthDay: boolean;
+    isPublicHoliday: boolean;
   }

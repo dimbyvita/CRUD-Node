@@ -1,5 +1,15 @@
+import { WeekDay } from "./CalendarUtils";
+
 // Liste des jours de la semaine
-export const weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+export const weekDays: WeekDay[] = [
+  { day: 'Su', isWeekend: true },
+  { day: 'Mo', isWeekend: false },
+  { day: 'Tu', isWeekend: false },
+  { day: 'We', isWeekend: false },
+  { day: 'Th', isWeekend: false },
+  { day: 'Fr', isWeekend: false },
+  { day: 'Sa', isWeekend: true },
+];
 
 // Liste des mois de l'année
 export const Months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
