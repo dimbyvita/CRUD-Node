@@ -1,10 +1,9 @@
 import React from 'react'
-import { day, weekDays } from '../Utils/lib'
-import { Day } from '../Utils/CalendarUtils'
 import { ButtonBack } from '../UI/ButtonBack'
 import { ButtonForward } from '../UI/ButtonForward'
 import { useWeekCalendar } from '../Hooks/useWeekCalendar'
-import { AfficheDay } from '../services/AfficheDay'
+import { weekDays } from '../Utils/lib'
+import { Day } from '../Utils/CalendarUtils'
 
 
 
@@ -35,7 +34,7 @@ export const WeekView = () => {
                     ${day.isWeekend ? 'bg-slate-200 text-slate-800' : ''}
                     `}>
                      <p>{day.day}</p>
-                     <p className='bg-slate-300 rounded-full w-fit items-center py-2 px-4' >1</p>
+                     <p className='bg-slate-300 rounded-full w- items-center py-2 px-4' >1</p>
                     </th>
                   ))}
                 </tr>
