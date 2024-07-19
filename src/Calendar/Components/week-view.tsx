@@ -4,6 +4,7 @@ import { Day } from '../Utils/CalendarUtils'
 import { ButtonBack } from '../UI/ButtonBack'
 import { ButtonForward } from '../UI/ButtonForward'
 import { useWeekCalendar } from '../Hooks/useWeekCalendar'
+import { AfficheDay } from '../services/AfficheDay'
 
 
 
@@ -30,10 +31,11 @@ export const WeekView = () => {
                 <tr>
                   {/* Affichage des jours de la semaine */}
                   {weekDays.map(day => (
-                    <th key={day.day} className={` p-2 text-center border border-gray-300
+                    <th key={day.day} className={` p-2 text-center border border-gray-300 flex-col justify-center gap-3
                     ${day.isWeekend ? 'bg-slate-200 text-slate-800' : ''}
                     `}>
-                      {day.day}
+                     <p>{day.day}</p>
+                     <p className='bg-slate-300 rounded-full w-fit items-center py-2 px-4' >1</p>
                     </th>
                   ))}
                 </tr>

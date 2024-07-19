@@ -48,8 +48,8 @@ export const MonthView = (): ReactElement => {
                       <td
                         key={index}
                         className={`rounded border border-gray-300 bg-slate-100 hover:bg-gradient-to-r from-blue-200 to-violet-400 p-2 text-end
-                          ${day.isWeekend ? 'bg-slate-200 text-slate-400' : ''} 
-                          ${day.isCurrentDay ? 'bg-blue-200 text-blue-700' : ''}
+                          ${day.isWeekend ? 'bg-slate-100 text-slate-400' : ''} 
+                          ${day.isCurrentDay ? 'bg-blue-300/45 text-blue-700' : ''}
                           ${day.isNextMonthDay ? 'text-slate-600 bg-slate-300' : ''}
                           ${day.isPreviousMonthDay? 'text-slate-600 bg-slate-300' : ''}
                           `}
