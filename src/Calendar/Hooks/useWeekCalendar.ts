@@ -3,29 +3,30 @@ import axios from 'axios';
 import { Day } from '../Utils/CalendarUtils';
 
 export const useWeekCalendar = () => {
-    const [nav, setNav] = useState<number>(0); // État pour gérer la navigation des semaines (0 signifie la semaine actuelle)
+    const [nav, setNav] = useState<number>(0); // State to manage week navigation (0 means the current week)
     const [weekDisplay, setWeekDisplay] = useState('');
-    const [days, setDays] = useState<Day[]>([]); // État pour stocker les jours de la semaine
+    const [days, setDays] = useState<Day[]>([]); // State to store the days of the week
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/calendar/week/${nav}`);
+                const response = await axios.get(`http://localhost:5000/api/calendar/weekly/${nav}`);    
                 setDays(response.data.days);
                 setWeekDisplay(response.data.weekDisplay);
             } catch (error) {
                 console.error('Error fetching week data:', error);
-    
-        }
+            }
+        };
+        // Call fetchData function to get data
         fetchData();
-    }
-    }, [nav]);
 
-    // Fonction pour réinitialiser la vue sur la semaine actuelle
+    }, [nav]); // Dependency array includes nav to refetch data when nav changes
+
+    // Function to reset the view to the current week
     const handleTodayClick = () => {
         setNav(0);
     };
 
-    // Retourner les états et fonctions nécessaires
+
     return { nav, days, weekDisplay, setNav, handleTodayClick };
 };

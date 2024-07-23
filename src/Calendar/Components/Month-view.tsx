@@ -8,7 +8,7 @@ import { weekDays } from '../Utils/lib';
 
 
 export const MonthView = (): ReactElement => {
-  const { nav, days, dateDisplay, setNav,handleTodayClick } = useMonthCalendar();
+  const { nav, days, monthDisplay, setNav,handleTodayClick } = useMonthCalendar();
 
   return (
     <div className='h-full'>
@@ -20,7 +20,7 @@ export const MonthView = (): ReactElement => {
               <ButtonBack onClick={() => setNav(nav - 1)}/> 
                 <button onClick={handleTodayClick} className='p-2 rounded'>Today</button>
               <ButtonForward onClick={() => setNav(nav + 1)}/> 
-              <h1 className=''>{dateDisplay}</h1> {/* Affichage du mois et de l'année en cours */}
+              <h1 className=''>{monthDisplay}</h1> {/* Affichage du mois et de l'année en cours */}
             </div>
           </header>
 

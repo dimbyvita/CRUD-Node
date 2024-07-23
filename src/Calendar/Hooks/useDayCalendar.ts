@@ -3,17 +3,17 @@ import axios from 'axios';
 import { Day } from '../Utils/CalendarUtils';
 
 // Hook personnalisé pour gérer l'état du calendrier mensuel
-export const useMonthCalendar = () => {
+export const useDayCalendar = () => {
   const [nav, setNav] = useState<number>(0); // État pour gérer la navigation des mois (0 signifie le mois actuel)
-  const [monthDisplay, setMonthDisplay] = useState<string>(''); // État pour afficher la date formatée
+  const [dayDisplay, setdayDisplay] = useState<string>(''); // État pour afficher la date formatée
   const [days, setDays] = useState<Day[]>([]); // État pour stocker les jours du mois
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/calendar/monthly/${nav}`);
+        const response = await axios.get(`http://localhost:5000/api/calendar/daily/${nav}`);
         setDays(response.data.days);
-        setMonthDisplay(response.data.monthDisplay);
+        setdayDisplay(response.data.dayDisplay);
       } catch (error) {
         console.error('Error fetching calendar data:', error);
       }
@@ -28,5 +28,5 @@ export const useMonthCalendar = () => {
   };
 
   // Retourner les états et fonctions nécessaires
-  return { nav, days, monthDisplay, setNav, handleTodayClick };
+  return { nav, days, dayDisplay, setNav, handleTodayClick };
 };

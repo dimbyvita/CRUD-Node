@@ -1,47 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { ButtonBack } from '../UI/ButtonBack';
+import { ButtonForward } from '../UI/ButtonForward';
+import { useDayCalendar } from '../Hooks/useDayCalendar';
 
-
-interface Event {
-  day_start: string;
-  day_end: string;
-  title: string;
-}
-
-interface DayHoursProps {
-  date: Date;
-}
-
-const DayHours: React.FC<DayHoursProps> = ({ date }) => {
-  // Create an array of 24 hours (0h to 23h)
-  const hours = Array.from({ length: 24 }, (_, i) => i);
-  const [clicked, setClicked] = useState<number | null>(null);
-
-
+export const DayView = () => {
+  const { nav, days, dayDisplay, setNav, handleTodayClick } = useDayCalendar();
+  
   return (
     <div>
-      <h2>Hours:</h2>
-      <ul>
-        {hours.map((hour) => (
-          <li
-            key={hour}
-            className='w-full flex h-28 gap-10 items-center border-b-2'
-            
-          >
-            {hour.toString().padStart(2, '0')}:00
-            {/* Display events */}
-            
-          </li>
-        ))}
-      </ul>
-      {clicked !== null && (
-        <div className="fixed inset-0 flex items-center justify-center">
-          <div className="bg-white p-4 rounded shadow-lg">
-            
-          </div>
+      <header className='flex items-center'>
+        <div className='flex mb-4 items-center'>
+          <ButtonBack onClick={() => setNav(nav - 1)} />
+          <button onClick={handleTodayClick} className='p-2 rounded'>Today</button>
+          <ButtonForward onClick={() => setNav(nav + 1)} />
+          <h1 className=''>{dayDisplay}</h1>
         </div>
-      )}
+      </header>
+      <div className='flex gap-1 p-2 '>
+        <div className='w-full m-0'>
+          {
+            Array.from({ length: 24 }, (_, hour) => (
+              <div key={hour} className='p-5 flex w-full'>
+                {days[0].value ? '':'adala'}
+                <p className='rounded border border-gray-300 bg-slate-100 hover:bg-gradient-to-r from-blue-200 to-violet-400 p-2 text-end'>
+                  {days[0]?.isCurrentDay ? '' : ''}
+                  {days[0]?.isWeekend ? 'bg-slate-300' : ''}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
     </div>
   );
 };
-
-export default DayHours;

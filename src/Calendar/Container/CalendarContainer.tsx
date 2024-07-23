@@ -4,7 +4,7 @@ import FormatCalendar from '../services/FormatCalendar';
 
 export const CalendarContainer: React.FC = () => {
   return (
-    <div>
+    <div className='overflow-y-scroll md:overflow-hidden'>
       <FormatCalendar />
     </div>
   );

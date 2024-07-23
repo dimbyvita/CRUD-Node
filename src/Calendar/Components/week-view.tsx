@@ -10,7 +10,7 @@ import { Day } from '../Utils/CalendarUtils'
 export const WeekView = () => {
   const { nav, days, weekDisplay, setNav, handleTodayClick } = useWeekCalendar()
   return (
-    <div className='h-full'>
+    <div className='h-full overflow-y-scroll md:overflow-y-hidden'>
       <div id='Simple Calendar' className='flex h-full py-5'>
         <div className='bg-slate-200 flex flex-col gap-3 p-2 rounded-md h-full w-full'>
           <header className='flex items-center'>
@@ -23,18 +23,22 @@ export const WeekView = () => {
             </div>
           </header>
 
-          <div className=' h-full flex'>
+          <div className=' h-full flex overflow-y-scroll'>
             {/* Tableau pour afficher les jours du mois */}
             <table className='w-full table-fixed to-violet-400-collapse'>
               <thead>
                 <tr>
-                  {/* Affichage des jours de la semaine */}
-                  {weekDays.map(day => (
-                    <th key={day.day} className={` p-2 text-center border border-gray-300 flex-col justify-center gap-3
-                    ${day.isWeekend ? 'bg-slate-200 text-slate-800' : ''}
+                  {/* Header row for days of the week */}
+                  {weekDays.map((day, index) => (
+                    <th key={index} className={`p-2 text-center border border-gray-300 
+                      ${day.isWeekend ? 'bg-slate-200 text-slate-800' : ''}
                     `}>
-                     <p>{day.day}</p>
-                     <p className='bg-slate-300 rounded-full w- items-center py-2 px-4' >1</p>
+                      <div>
+                        <p>{day.day}</p> {/* Day label */}
+                        <p className={`bg-slate-300 rounded-full py-2 px-4 ${day.isWeekend ? 'text-slate-800' : ''}`}>
+                          {days[index]?.value || ''}{/* Date value */}
+                        </p>
+                      </div>
                     </th>
                   ))}
                 </tr>
@@ -42,18 +46,16 @@ export const WeekView = () => {
               <tbody>
                 {/* Diviser les jours en semaines */}
                 {Array.from({ length: 24 }, (_, hour) => (
-                  <tr key={hour} className='p-5'>
+                  <tr key={hour} className='p-5 '>
                     {/* Affichage des jours de la semaine */}
                     {days.map((day: Day, index: number) => (
                       <td
-                        key={index}
-                        className={`rounded border border-gray-300 bg-slate-100 hover:bg-gradient-to-r from-blue-200 to-violet-400 p-2 text-end
-                          ${day.isWeekend ? 'bg-slate-200 text-slate-400' : ''} 
-                          ${day.isCurrentDay ? 'bg-blue-200 text-blue-700' : ''}
-                          ${day.isNextMonthDay ? 'text-slate-600 bg-slate-300' : ''}
-                          ${day.isPreviousMonthDay? 'text-slate-600 bg-slate-300' : ''}
-                          `}
-                      >
+                      key={index}
+                      className={`rounded border border-gray-300 bg-slate-100 hover:bg-gradient-to-r from-blue-200 to-violet-400 p-2 text-end
+                        ${day.isWeekend ? 'bg-slate-300/40 text-slate-400' : ''} 
+                        ${day.isCurrentDay ? 'bg-blue-300/20 text-blue-700' : ''}
+                        `}
+                        >
                       </td>
                     ))}
                   </tr>

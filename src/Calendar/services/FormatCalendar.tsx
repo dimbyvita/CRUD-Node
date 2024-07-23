@@ -2,6 +2,7 @@ import React from 'react';
 import { MonthView } from '../Components/Month-view'; // Importation du composant pour la vue mensuelle
 import { WeekView } from '../Components/week-view'; // Importation du composant pour la vue hebdomadaire
 import { useChangeFormat } from '../Hooks/useChangeFormat'; // Importation du hook personnalisé pour changer le format du calendrier
+import { DayView } from '../Components/Day-view';
 
 // Composant principal pour gérer le changement de format du calendrier
 export default function FormatCalendar() {
@@ -21,7 +22,7 @@ export default function FormatCalendar() {
       <div id='calendar' className='h-5/6'>
         {activeComponent === "monthly" && <MonthView />} {/* Affichage de la vue mensuelle */}
         {activeComponent === "weekly" && <WeekView />} {/* Affichage de la vue hebdomadaire */}
-        {/* {activeComponent === "daily" && <DayView />} */} {/* Affichage de la vue quotidienne (pour le moment commentée) */}
+        {activeComponent === "daily" && <DayView />} {/* Affichage de la vue quotidienne (pour le moment commentée) */}
       </div>
     </div>
   );
