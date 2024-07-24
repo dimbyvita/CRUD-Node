@@ -51,11 +51,11 @@ export const WeekView = () => {
                     {days.map((day: Day, index: number) => (
                       <td
                       key={index}
-                      className={`rounded border border-gray-300 bg-slate-100 hover:bg-gradient-to-r from-blue-200 to-violet-400 p-2 text-end
-                        ${day.isWeekend ? 'bg-slate-300/40 text-slate-400' : ''} 
+                      className={`rounded border border-gray-300  hover:bg-gradient-to-r from-blue-200 to-violet-400 p-2 text-end                        ${day.isWeekend ? 'bg-slate-300/40 text-slate-400' : ''} 
                         ${day.isCurrentDay ? 'bg-blue-300/20 text-blue-700' : ''}
+                        ${day.isPassedDay ? 'cursor-not-allowed': 'cursor-pointer'}
                         `}
-                        >
+                        >a
                       </td>
                     ))}
                   </tr>

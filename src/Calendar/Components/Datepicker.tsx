@@ -7,13 +7,13 @@ import { Day } from '../Utils/CalendarUtils';
 import { weekDays } from '../Utils/lib';
 
 
-export const MonthView = (): ReactElement => {
+export const Datepicker = (): ReactElement => {
   const { nav, days, monthDisplay, setNav,handleTodayClick } = useMonthCalendar();
 
   return (
     <div className='h-full'>
-      <div id='Simple Calendar' className='flex h-full py-5'>
-        <div className='bg-slate-200 flex flex-col gap-3 p-2 rounded-md h-full w-full'>
+      <div id='Simple Calendar' className='flex w-96 h-96 py-5'>
+        <div className='bg-slate-200 flex flex-col gap-3 p-2 rounded-md h-full'>
           <header className='flex items-center'>
             {/* En-tête du calendrier avec les boutons de navigation */}
             <div className='flex mb-4 items-center'>
@@ -48,11 +48,11 @@ export const MonthView = (): ReactElement => {
                     <td
                       key={index}
                       className={`relative border border-gray-300 bg-slate-100 hover:bg-gradient-to-r from-blue-200 to-violet-400 p-2 
+                        cursor-pointer
                         ${day.isWeekend ? 'bg-slate-100 text-slate-400' : ''} 
                         ${day.isCurrentDay ? 'bg-blue-300/45 text-blue-700' : ''}
                         ${day.isNextMonthDay ? 'text-slate-600 bg-slate-300' : ''}
                         ${day.isPreviousMonthDay ? 'text-slate-600 bg-slate-300' : ''}
-                        ${day.isPassedDay ? 'cursor-not-allowed': 'cursor-pointer'}
                       `}
                     >
                       <span className='absolute top-2 right-2 text-sm font-semibold'>

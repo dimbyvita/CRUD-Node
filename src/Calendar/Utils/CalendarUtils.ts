@@ -40,6 +40,7 @@ export type Events = {
     isCurrentDay: boolean;
     isWeekend: boolean;
     isNextMonthDay: boolean;
+    isPassedDay: boolean;
     isPreviousMonthDay: boolean;
     isPublicHoliday: boolean;
   }
