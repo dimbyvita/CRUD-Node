@@ -9,7 +9,7 @@ export const router = createBrowserRouter (
         element: <App/>,
         children: [
           {
-            path: '/calendar',
+            path: 'calendar',
             element: <CalendarContainer />
           }
         ]

@@ -10,7 +10,7 @@ export const DayView = () => {
   const isDaysValid = Array.isArray(days) && days.length > 0;
  
   return (
-    <div className='h-full overflow-y-scroll p-3 '>
+    <div className='h-full w-full overflow-y-scroll p-3 '>
       <header className='flex items-center'>
         <div className='flex mb-4 items-center'>
           <ButtonBack onClick={() => setNav(nav - 1)} />
