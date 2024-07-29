@@ -28,6 +28,7 @@ export const WeekView = () => {
             <table className='w-full table-fixed to-violet-400-collapse'>
               <thead>
                 <tr>
+                  <th className='w-20'>Hour</th>
                   {/* Header row for days of the week */}
                   {weekDays.map((day, index) => (
                     <th key={index} className={`p-2 text-center border border-gray-300 
@@ -46,8 +47,9 @@ export const WeekView = () => {
               <tbody>
                 {/* Diviser les jours en semaines */}
                 {Array.from({ length: 24 }, (_, hour) => (
-                  <tr key={hour} className='p-5 '>
+                  <tr key={hour} className='p-5 h-32'>
                     {/* Affichage des jours de la semaine */}
+                    <td className='flex items-center justify-center'>{hour.toString().padStart(2, '0')}:00</td>
                     {days.map((day: Day, index: number) => (
                       <td
                       key={index}
@@ -55,7 +57,7 @@ export const WeekView = () => {
                         ${day.isCurrentDay ? 'bg-blue-300/20 text-blue-700' : ''}
                         ${day.isPassedDay ? 'cursor-not-allowed': 'cursor-pointer'}
                         `}
-                        >a
+                        >
                       </td>
                     ))}
                   </tr>

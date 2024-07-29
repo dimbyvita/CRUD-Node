@@ -24,11 +24,12 @@ export const DayView = () => {
         <div className='w-full'>
           {isDaysValid ? (
             Array.from({ length: 24 }, (_, hour) => (
-              <div key={hour} className='p-1 w-full cursor-pointer'>
+              <div key={hour} className='p-3 rounded h-60 w-full flex gap-2 cursor-pointer bg-slate-100'>
+                <p className='p-2'>{hour.toString().padStart(2, '0')}:00</p>
                 {days[0].value ? '':'adala'}
-                <p className='rounded border border-gray-300 bg-slate-100 hover:bg-gradient-to-r from-blue-200 to-violet-400 p-2 '>
+                <p className='rounded border w-full h-full border-gray-300 hover:bg-gradient-to-r from-blue-200 to-violet-400 p-2 '>
                   {days[0]?.isCurrentDay ? '(Today)' : 'otherdays'}
-                  {days[0]?.isWeekend ? '(Weekend)' : ''}
+                  {days[0]?.isWeekend ? '(Weekend) ' : ''}
                   {days[0]?.isPassedDay ? '(Passed) ' : ''}
                 </p>
               </div>

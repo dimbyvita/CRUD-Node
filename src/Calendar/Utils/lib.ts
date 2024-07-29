@@ -1,5 +1,7 @@
 import { WeekDay } from "./CalendarUtils";
 
+
+
 // Liste des jours de la semaine
 export const weekDays: WeekDay[] = [
   { day: 'Su', isWeekend: true },
