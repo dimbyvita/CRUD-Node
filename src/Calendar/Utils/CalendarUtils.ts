@@ -1,9 +1,11 @@
 // Type pour les événements du calendrier
-export type Events = {
+export interface Events{
     id: string;
+    ownerName: string;
     title: string;
-    start: string;
-    end: string;
+    description?: string;
+    dEntre: string;
+    dSortie: string;
   }
   
   // Type pour les formats du calendrier
@@ -35,7 +37,7 @@ export type Events = {
   // Interface pour représenter un jour dans le calendrier
   export interface Day {
     date: string;
-    event?: Events[];
+    events: Events[];
     value: number | 'padding';
     isCurrentDay: boolean;
     isWeekend: boolean;
@@ -44,3 +46,9 @@ export type Events = {
     isPreviousMonthDay: boolean;
     isPublicHoliday: boolean;
   }
+
+  export type ModalEventProps = {
+    onClose: () => void;
+    onSave: (title: string) => void;
+    day: { date: Date };
+  };
