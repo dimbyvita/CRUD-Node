@@ -11,8 +11,6 @@ export const MonthView = (): ReactElement => {
   const { nav, eventsApi, days, monthDisplay, setNav, handleTodayClick, addEvent, updateEvent, deleteEvent, handleChange, formData } = useMonthCalendar();
   const [clicked, setClicked] = useState<Day | null>(null);
 
-  console.log('Rendered Days:', days);
-
   return (
     <div className='h-full'>
       <div id='Simple Calendar' className='flex h-full py-5'>
@@ -57,15 +55,17 @@ export const MonthView = (): ReactElement => {
                         <span className='absolute top-2 right-2 text-sm font-semibold'>
                           <AfficheDay day={day} />
                         </span>
-                        {day.events && day.events.length > 0 && (
-                          <div className="absolute bottom-0 left-0 right-0 p-1 text-center text-white bg-opacity-75">
-                            {day.events.map((event: Events, eventIndex: number) => (
-                              <div key={eventIndex} className="bg-blue-500 text-xs rounded px-1 m-1">
-                                {event.title}
-                              </div>
-                            ))}
-                          </div>
-                        )}
+                        <span className='flex '>
+                          {day.events && day.events.length > 0 && (
+                            <div className="absolute bottom-0 left-0 right-0 p-1 text-center text-white bg-opacity-75">
+                              {day.events.map((event: Events, eventIndex: number) => (
+                                <div key={eventIndex} className="bg-blue-500 text-xs rounded px-1 m-1">
+                                  {event.title}
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </span>
                       </td>
                     ))}
                   </tr>

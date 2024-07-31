@@ -11,7 +11,7 @@ export const ModalEvent: React.FC<ModalEventProps> = ({ onClose, onSave, day }) 
   const handleAddEvent = async () => {
     if (title.trim()) {
       try {
-        const response = await fetch('http://localhost:5001/events', {
+        const response = await fetch('http://localhost:5001/events/add', { // Modifié ici
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ export const ModalEvent: React.FC<ModalEventProps> = ({ onClose, onSave, day }) 
             dSortie: dateEnd,
           }),
         });
-
+  
         if (response.status === 201 || response.status === 200) { // Traiter les statuts 200 et 201
           const data = await response.json();
           console.log(data);
@@ -43,7 +43,7 @@ export const ModalEvent: React.FC<ModalEventProps> = ({ onClose, onSave, day }) 
     } else {
       setError(true);
     }
-  };
+  }; 
 
   return (
     <>

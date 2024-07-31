@@ -26,11 +26,7 @@ export const useMonthCalendar = () => {
         const fetchedDays: Day[] = calendarResponse.data.days || [];
         const fetchedEvents: Events[] = eventsResponse.data || [];
 
-        console.log('Fetched Days:', fetchedDays);
-        console.log('Fetched Events:', fetchedEvents);
-
         const daysWithEvents = mapEventsToDays(fetchedDays, fetchedEvents);
-        console.log('Days with Events:', daysWithEvents);
 
         setDays(daysWithEvents);
         setMonthDisplay(calendarResponse.data.monthDisplay || '');
@@ -45,7 +41,7 @@ export const useMonthCalendar = () => {
 
   const addEvent = async (event: Events) => {
     try {
-      await axios.post(Api_Event, event);
+      await axios.post(`${Api_Event}/add`, event);
       const eventsResponse = await axios.get(Api_Event);
       setEventsApi(eventsResponse.data || []);
     } catch (error) {
@@ -85,10 +81,7 @@ export const useMonthCalendar = () => {
   const mapEventsToDays = (days: Day[], events: Events[]): Day[] => {
     return days.map(day => {
       const dayEvents = events.filter(event => {
-        const eventStartDate = new Date(event.dEntre).toDateString();
-        const eventEndDate = new Date(event.dSortie).toDateString();
-        const dayDate = new Date(day.date).toDateString();
-        return eventStartDate <= dayDate && dayDate <= eventEndDate;
+        return event.dEntre <= day.date && event.dSortie >= day.date;
       });
 
       return {
